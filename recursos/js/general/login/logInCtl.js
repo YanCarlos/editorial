@@ -12,10 +12,12 @@
 /*app.controller(nombre de la funcion)  ($scope, nombre de los servicios a utilizar)*/
 /*$windows servicio por defecto para poder utilizar refresco de pagina y redireccionamiento*/
 /*logInService, nombre del servicio que contiene la promesa. */
-app.controller('CtlLogIn', function ($scope, $window, logInService) {
+app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO) {
 
     /*Se inicializa el modelo*/
-    $scope.identificacion = "";
+    $scope.identificacion = {};
+    $scope.registro = {};
+    $scope.usuario = {};
 
     /*Se define una funcion en el controlador*/
     $scope.logIn = function (form) {
@@ -37,18 +39,7 @@ app.controller('CtlLogIn', function ($scope, $window, logInService) {
                     sessionStorage.setItem("sesion", response.status);
 
                     /*Redirecciona la pagina*/
-                    alert(response[0].rol);
-                    if (response[0].rol === "CLIENTE") {
-                        $window.location.href = "masterPageCliente.html";
-                    } else if (response[0].rol === "ADMINISTRADOR") {
-                        $window.location.href = "masterPageAdmin.html";
-                    } else if (response[0].rol === "GERENTE") {
-                        $window.location.href = "masterPageGerente.html";
-                    } else if (response[0].rol === "ASESOR") {
-                        $window.location.href = "masterPageAsesor.html";
-                    } else if (response[0].rol === "CAJERO") {
-                        $window.location.href = "masterPageCajero.html";
-                    }
+                     $window.location.href = "inicio.html";
 
                 } else {
                     alert("Usuario o contrasena incorrectos");
@@ -71,12 +62,11 @@ app.controller('CtlLogIn', function ($scope, $window, logInService) {
                 /*El resultado de la promes se recibe por parametro*/
                 if (response.status === "true") {
                     alert("Se registró con éxito");
-                    $("#login-form").delay(100).fadeIn(100);
-                    $("#register-form").fadeOut(100);
-                    $('#register-form-link').removeClass('active');
-                    $('#login-form-link').addClass('active');
+                    $window.location.href = 'inicio.html';
+                } else if(response.msg.errorInfo[0] === "23000"){
+                    alert("El correo ya existe");
                 } else {
-                    alert("Cedula o Usuario ya existe");
+                    alert("error");
                 }
             });
         } else {
@@ -84,6 +74,13 @@ app.controller('CtlLogIn', function ($scope, $window, logInService) {
         }
     };
 
+    $scope.registrarAutor = function () {
+        $scope.registro.tipo = TIPOSUSUARIO.AUTOR;
+    }
+
+    $scope.registrarEditor = function () {
+        $scope.registro.tipo = TIPOSUSUARIO.EDITOR;
+    }
 
     /*Se define una funcion para agregar*/
     $scope.logOut = function () {

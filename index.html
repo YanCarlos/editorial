@@ -12,12 +12,12 @@ and open the template in the editor.
         <link href="dependencias/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="dependencias/jquery/jquery.min.js" type="text/javascript"></script>
         <script src="dependencias/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-        <script src="dependencias/bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <script src="dependencias/angular/angular.min.js" type="text/javascript"></script>
 
         <!--         DEPENDENCIAS ADICIONALES ANGULAR         
                  ARCHIVO NECESARIO PARA EL MASTER PAGE 
                  PERMITE HACER EL ENRUTAMIENTO DE URL'S -->
-        <script src="dependencias/bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <script src="dependencias/angular-route/angular-route.min.js" type="text/javascript"></script>
         
         <!-- App -->
         <script src="recursos/js/general/app.js" type="text/javascript"></script>
@@ -42,102 +42,133 @@ and open the template in the editor.
                                     <a href="#" class="active" id="login-form-link">Login</a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="#" id="register-form-link">Registro</a>
+                                    <label>Registro</label>
                                 </div>
                             </div>
                             <hr>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" ng-controller="CtlLogIn">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form id="login-form" role="form" name="formLogIn" 
-                                          ng-controller="CtlLogIn" style="display: block;">
+                                    <form id="login-form" role="form" name="formLogIn" style="display: block;">
                                         <div class="form-group">
-                                            <input type="text" name="username" 
-                                                   id="username" class="form-control" 
-                                                   placeholder="Nombre de Usuario" 
-                                                   ng-model="identificacion.usuario" required>
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                              <input type="text" name="correo" 
+                                                     id="correo" class="form-control has-feedback-left" 
+                                                     placeholder="Correo" 
+                                                     ng-model="identificacion.correo" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                             <input type="password" name="password" 
                                                    id="password" 
                                                    class="form-control" placeholder="Password" 
                                                    ng-model="identificacion.password" required>
+                                            </div>
+                                          </div>
                                         </div>
+                                        <div class="ln_solid"></div>
                                         <div class="form-group">                                          
                                           <div class="row">                                            
-                                            <div class="col-sm-4  col-sm-offset-4">
+                                            <div class="col-sm-2  col-sm-offset-5">
                                                     <input type="button" name="login-submit" 
                                                            id="login-submit" 
-                                                           class="form-control btn btn-login" 
+                                                           class="form-control btn btn-success" 
                                                            value="Log In" ng-click="logIn(formLogIn.$valid)">
-                                                </div>                                               
+                                                </div>                                   
                                             </div>                                            
                                         </div>
-                                        <div class="form-group">                                          
-                                          <div class="row">                                                    
-                                                <div class="col-sm-6  col-sm-offset-3">
+                                        <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                                     <input type="button" name="login-submit" 
-                                                           id="login-submit" 
-                                                           class="form-control btn btn-login" 
-                                                           value="Registrase como Autor" ng-click="logIn(formLogIn.$valid)">
-                                                </div>                                             
-                                            </div>                                            
+                                                           id="register-form-link"
+                                                           class="form-control btn btn-primary register-form-link" 
+                                                           value="Registrase como Autor" ng-click="registrarAutor()">
+                                                </div>
+                                          </div>
                                         </div>
-                                        <div class="form-group">                                          
-                                          <div class="row">                                                    
-                                                <div class="col-sm-6  col-sm-offset-3">
+                                        <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">                                          
                                                     <input type="button" name="login-submit" 
-                                                           id="login-submit" 
-                                                           class="form-control btn btn-login" 
-                                                           value="Registrase como Editor" ng-click="logIn(formLogIn.$valid)">
-                                                </div>                                             
-                                            </div>                                            
+                                                           id="register-form-link" 
+                                                           class="form-control btn btn-primary register-form-link" 
+                                                           value="Registrase como Editor" ng-click="registrarEditor()">
+                                            </div>
+                                          </div>
                                         </div>
                                     </form>
-                                    <form id="register-form" role="form" name="formRegistro" 
-                                          style="display: none;" ng-controller="CtlLogIn">
+                                    <form id="register-form" role="form" name="formRegistro" style="display: none;">
                                         <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                             <input type="text" name="nombre" id="nombre" 
                                                    tabindex="1" class="form-control" 
                                                    placeholder="Nombre" ng-model="registro.nombre" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                             <input type="text" name="apellido" 
                                                    id="apellido" tabindex="1" 
                                                    class="form-control" placeholder="Apellido" 
                                                    ng-model="registro.apellido" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" name="cedula" 
-                                                   id="cedula" tabindex="2" 
-                                                   class="form-control" placeholder="Cedula"
-                                                   ng-model="registro.cedula" required>
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="text" name="direccion" 
+                                                   id="direccion" tabindex="2" 
+                                                   class="form-control" placeholder="Direccion"
+                                                   ng-model="registro.direccion" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="date" name="fechaNacimiento" 
-                                                   id="fechaNacimiento" tabindex="2" 
-                                                   class="form-control" placeholder="Fecha de Nacimiento"
-                                                   ng-model="registro.fechaNacimiento" required>
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="text" name="telefono" 
+                                                   id="telefono" tabindex="3" 
+                                                   class="form-control" placeholder="Telefono"
+                                                   ng-model="registro.telefono" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                             <input type="text" name="user" id="user" 
-                                                   tabindex="1" class="form-control"
-                                                   placeholder="Usuario" 
-                                                   ng-model="registro.usuario" required>
+                                                   tabindex="4" class="form-control"
+                                                   placeholder="Correo" 
+                                                   ng-model="registro.email" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
+                                          <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
                                             <input type="password" name="password" 
-                                                   id="password" tabindex="2" 
+                                                   id="password" tabindex="5" 
                                                    class="form-control" placeholder="Password"
                                                    ng-model="registro.password" required>
+                                            </div>
+                                          </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-sm-6 col-sm-offset-3">
+                                                <div class="col-sm-4 col-sm-offset-4">
                                                     <input type="button" name="register-submit" 
-                                                           id="register-submit" tabindex="4" 
-                                                           class="form-control btn btn-login" 
+                                                           id="register-submit" tabindex="6" 
+                                                           class="form-control btn btn-success" 
                                                            value="Registrar" ng-click="registrar(formRegistro.$valid)">
                                                 </div>
                                             </div>

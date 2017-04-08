@@ -64,17 +64,14 @@ class Repository {
             $resultado = $this->objCon->getConnect()->prepare($query);
             /* Executo la consulta */
             $resultado->execute();
-            /* Si obtuvo resultados, entonces paselos a un vector */            
+            /* Si obtuvo resultados, entonces paselos a un vector */
             if ($resultado->rowCount() > 0) {
-                $vec = $resultado->fetchAll(PDO::FETCH_NUM);
-            }
-            if ($vec[0] > 0) {
                 echo(json_encode(['status' => 'true', "msg" => "Operacion exitosa"]));
             } else {
                 echo(json_encode(['status' => 'false', "msg" => "Error en la operacion"]));
             }
         } catch (PDOException $exception) {
-            echo(json_encode(['status' => 'false', "msg" => "Error inesperado"]));
+            echo(json_encode(['status' => 'false', "msg" => $exception]));
         }
     }
 
@@ -110,17 +107,14 @@ class Repository {
             $resultado = $this->objCon->getConnect()->prepare($query);
             /* Executo la consulta */
             $resultado->execute();
-            /* Si obtuvo resultados, entonces paselos a un vector */            
+            /* Si obtuvo resultados, entonces paselos a un vector */                        
             if ($resultado->rowCount() > 0) {
-                $vec = $resultado->fetchAll(PDO::FETCH_NUM);
-            }
-            if ($vec[0] > 0) {
                 return (json_encode(['status' => 'true', "msg" => "Operacion exitosa"]));
             } else {
                 return (json_encode(['status' => 'false', "msg" => "Error en la operacion"]));
             }
         } catch (PDOException $exception) {
-            return (json_encode(['status' => 'false', "msg" => "Error inesperado"]));
+            return (json_encode(['status' => 'false', "msg" => $exception]));
         }
     }
 

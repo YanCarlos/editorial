@@ -30,7 +30,7 @@ app.service('logInService', function ($http, $httpParamSerializerJQLike) {
             method: "get",
             url: "PDO/Controller/CtlLogIn.php",
             params: {
-                usuario: identificacion.usuario,
+                email: identificacion.correo,
                 password: identificacion.password},
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -52,15 +52,17 @@ app.service('logInService', function ($http, $httpParamSerializerJQLike) {
             method: "post",
             url: "PDO/Controller/CtlLogin.php",
             data: $httpParamSerializerJQLike({
+                tipoUsuario: registro.tipo,
                 nombre: registro.nombre,
                 apellido: registro.apellido,
-                cedula: registro.cedula,
-                fechaNacimiento: registro.fechaNacimiento,
-                usuario: registro.usuario,
+                telefono: registro.telefono,
+                direccion: registro.direccion,
+                email: registro.email,
                 password: registro.password}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
+            console.log(response);
             return response.data;
         }, function myError(response) {
             alert("Error");

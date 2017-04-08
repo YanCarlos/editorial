@@ -1,0 +1,61 @@
+<!--To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+  <title>TODO supply a title</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link href="dependencias/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="dependencias/font-awesome/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="recursos/css/custom.min.css" rel="stylesheet">  
+</head>
+
+<body ng-app="appPrincipal" ng-controller="CtlValidate" class="nav-md">
+
+  <div class="container body">
+    <div class="main_container">
+
+      <div ng-include="'template/template.html'"></div>      
+
+      <div class="right_col" role="main">
+        <div ng-view></div>
+      </div>
+
+      <div ng-include="'template/footer.html'"></div>
+
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="dependencias/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="dependencias/bootstrap/bootstrap.min.js"></script>
+
+  <!-- Custom Theme Scripts -->
+  <script src="recursos/js/custom.min.js"></script>
+
+  <!-- Angular -->
+  <script src="dependencias/angular/angular.min.js"></script>
+
+  <!--         DEPENDENCIAS ADICIONALES ANGULAR         
+  ARCHIVO NECESARIO PARA EL MASTER PAGE 
+  PERMITE HACER EL ENRUTAMIENTO DE URL'S -->
+  <script src="dependencias/angular-route/angular-route.min.js" type="text/javascript"></script>
+
+  <!-- App -->
+  <script src="recursos/js/general/app.js" type="text/javascript"></script>
+
+  <!-- Archivos de Login-->
+  <script src="recursos/js/general/login/logInSer.js" type="text/javascript"></script>
+  <script src="recursos/js/general/login/logInCtl.js" type="text/javascript"></script>
+
+</body>
+</html>

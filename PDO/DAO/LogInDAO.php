@@ -12,15 +12,18 @@ class LoginDAO {
     function ingresar(LogIn $obj) {
         $query = "SELECT id,nombre,apellido,tipo_usuario_id "
                 . "from tb_usuarios "
-                . "where email='" . $obj->getEmail() . "' AND password='" . $obj->getPassword() . "'";        
+                . "where email='" . $obj->getEmail() . "' AND password='" . $obj->getPassword() . "'";    
+        echo $query;
         $this->repository->Execute($query);        
     }
     
     function registrar(Usuario $obj){
+        $query = "SELECT id FROM tb_tipos_usuario WHERE tipo_usuario='".$obj->getTipoUsuario()."';";        
+        $id = json_decode($this->repository->ExecuteAux($query));
         $query = "INSERT INTO tb_usuarios (email,password,estado,nombre,apellido,telefono,direccion,tipo_usuario_id) 
                 VALUES ('".$obj->getEmail()."',". "'".$obj->getPassword()."',0,'".$obj->getNombre()
                 ."','".$obj->getApellido()."','".$obj->getTelefono()."','".$obj->getDireccion()."',"
-                .$obj->getTipoUsuario()."); ";
+                .$id[0]->{"id"}."); ";        
         $this->repository->ExecuteTransaction($query);
     }
 
