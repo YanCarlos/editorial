@@ -3,6 +3,7 @@
 /* IMPORTS */
 require '../Modelo/Usuario.php';
 require '../DAO/UsuarioDAO.php';
+require '../Util/Constantes.php';
 
 /* Capturamos el tipo de la peticion: podría ser get, post, put o delete. */
 $method = $_SERVER['REQUEST_METHOD'];
@@ -37,8 +38,8 @@ switch (strtolower($method)) {
         /* Guardar */
         /* CONTROL DE ACCIONES */
         $data = json_decode(json_encode($_POST));
-        $obj = new Cliente($data->password, $data->estado, $data->nombre, $data->apellido, 
-            $data->telefono, $data->direccion);
+        $obj = new Cliente($data->password, $data->nombre, $data->apellido, $data->telefono, $data->direccion, $data->email);
+        $obj->setId($data->id);
         $dtoUsuario->editar($obj);
         break;
 

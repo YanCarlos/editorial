@@ -10,14 +10,14 @@ class UsuarioDAO {
     }
 
     function buscar($idUsuario){
-        $query = "SELECT (nombre, apellido, telefono, email, direccion, estado) FROM tb_usuarios";
-        $this->repository->ExecuteTransaction($query);
+        $query = "SELECT u.id, u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado, t.tipo_usuario FROM tb_usuarios u join tb_tipos_usuario t on t.id=u.tipo_usuario_id where email='".$idUsuario."';";
+        $this->repository->Execute($query);
     }
 
     function editar(Usuario $obj){
         $query = "UPDATE tb_usuarios set nombre='".$obj->getNombre()."', apellido='".$obj->getApellido()
-                ."', estado=".$obj->getEstado().", telefono='".$obj->getTelefono()."', direccion='"
-                .$obj->getDireccion()."' where id=".$obj->getId().";";
+                ."', telefono='".$obj->getTelefono()."', direccion='".$obj->getDireccion()."', email='".$obj->getEmail()
+                ."' where id=".$obj->getId().";";
         $this->repository->ExecuteTransaction($query);
     }
 
@@ -27,17 +27,17 @@ class UsuarioDAO {
     }
 
     function listarAutores(){
-        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tb_tipos_usuario_id=tu.id WHERE tu.tipo_usuario=".AUTOR.";";
+        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tipo_usuario_id=tu.id WHERE tu.tipo_usuario=".AUTOR.";";
         $this->repository->Execute($query);    
     }
 
     function listarRevisores(){
-        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tb_tipos_usuario_id=tu.id WHERE tu.tipo_usuario=".REVISOR.";";
+        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tipo_usuario_id=tu.id WHERE tu.tipo_usuario=".REVISOR.";";
         $this->repository->Execute($query);    
     }
 
     function listarEditores(){
-        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tb_tipos_usuario  _id=tu.id WHERE tu.tipo_usuario=".EDITOR.";";
+        $query = "SELECT (u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado) FROM tb_usuarios u JOIN tb_tipos_usuario tu ON  u.tipo_usuario  _id=tu.id WHERE tu.tipo_usuario=".EDITOR.";";
         $this->repository->Execute($query);    
     }
 }

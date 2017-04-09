@@ -14,6 +14,10 @@ app.config(function ($routeProvider) {
         //controller: 'CtlBanco',
         templateUrl: 'vista/autor/articulo.html'
     })
+    .when('/editarperfil', {
+        //controller: 'CtlBanco',
+        templateUrl: 'vista/compartido/editarperfil.html'
+    })
     .otherwise({
         redirectTo: '/'
     });
@@ -22,7 +26,7 @@ app.config(function ($routeProvider) {
 /*Controlador global, que cada vez que se cargue la pagina masterPage 
  * valida si ya inicio sesion para saber si se deja o se redirecciona 
  * al index*/
- app.controller('CtlValidate', function ($scope, $window) {
+app.controller('CtlValidate', function ($scope, $window) {
     /*Se almacena en el modelo sesion, este es utilizado por el ng-show 
     * para saber si muestra o no la interfaz grafica*/
     $scope.sesion = sessionStorage.getItem("sesion");
@@ -32,7 +36,8 @@ app.config(function ($routeProvider) {
     }
 });
 
- app.constant('TIPOSUSUARIO',{
+app.constant('TIPOSUSUARIO',{
    AUTOR: 'AUTOR',
+   SUPERVISOR: 'SUPERVISOR',
    EDITOR: 'EDITOR'
 });

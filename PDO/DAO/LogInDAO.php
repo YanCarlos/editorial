@@ -13,7 +13,6 @@ class LoginDAO {
         $query = "SELECT id,nombre,apellido,tipo_usuario_id "
                 . "from tb_usuarios "
                 . "where email='" . $obj->getEmail() . "' AND password='" . $obj->getPassword() . "'";    
-        echo $query;
         $this->repository->Execute($query);        
     }
     

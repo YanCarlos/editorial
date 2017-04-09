@@ -12,7 +12,7 @@
 /*app.controller(nombre de la funcion)  ($scope, nombre de los servicios a utilizar)*/
 /*$windows servicio por defecto para poder utilizar refresco de pagina y redireccionamiento*/
 /*logInService, nombre del servicio que contiene la promesa. */
-app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO) {
+app.controller('CtlLogIn', function ($scope, $window, logInService, usuarioService, TIPOSUSUARIO) {
 
     /*Se inicializa el modelo*/
     $scope.identificacion = {};
@@ -34,13 +34,11 @@ app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO
             logInService.logIn($scope.identificacion).then(function (response) {
                 /*El resultado de la promesa se recibe por parametro*/
                 if (response.length > 0) {
-                    /*Se almacena en una variable de session los datos*/
-                    sessionStorage.setItem("usersession", response.user);
-                    sessionStorage.setItem("sesion", response.status);
-
+                    /*Se almacena en una variable de session los datos*/                    
+                    sessionStorage.setItem("user", $scope.identificacion.correo);
+                    sessionStorage.setItem("sesion", true);
                     /*Redirecciona la pagina*/
                      $window.location.href = "inicio.html";
-
                 } else {
                     alert("Usuario o contrasena incorrectos");
                     /*Solo con limpiar el objeto se limpian todos los input 
@@ -61,6 +59,9 @@ app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO
             logInService.registrar($scope.registro).then(function (response) {
                 /*El resultado de la promes se recibe por parametro*/
                 if (response.status === "true") {
+                    /*Se almacena en una variable de session los datos*/                     
+                    sessionStorage.setItem("user", $scope.registro.email);                    
+                    sessionStorage.setItem("sesion", response.status);                    
                     alert("Se registró con éxito");
                     $window.location.href = 'inicio.html';
                 } else if(response.msg.errorInfo[0] === "23000"){
@@ -78,8 +79,8 @@ app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO
         $scope.registro.tipo = TIPOSUSUARIO.AUTOR;
     }
 
-    $scope.registrarEditor = function () {
-        $scope.registro.tipo = TIPOSUSUARIO.EDITOR;
+    $scope.registrarSupervisor = function () {
+        $scope.registro.tipo = TIPOSUSUARIO.SUPERVISOR;
     }
 
     /*Se define una funcion para agregar*/
@@ -90,10 +91,11 @@ app.controller('CtlLogIn', function ($scope, $window, logInService, TIPOSUSUARIO
         $window.location.href = 'index.html';
     };
 
+    $scope.cargarUsuario = function() {
+        var email = sessionStorage.getItem("user");
+        usuarioService.buscar(email).then(function (response){
+            $scope.usuario = response[0];
+        });
+    };
+
 });
-
-
-
-
-
-
