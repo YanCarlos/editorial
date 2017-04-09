@@ -10,7 +10,7 @@ class UsuarioDAO {
     }
 
     function buscar($idUsuario){
-        $query = "SELECT u.id, u.nombre, u.apellido, u.telefono, u.email, u.direccion, u.estado, t.tipo_usuario FROM tb_usuarios u join tb_tipos_usuario t on t.id=u.tipo_usuario_id where email='".$idUsuario."';";
+        $query = "SELECT u.id, u.nombre, u.apellido, u.telefono, u.email, u.password, u.direccion, u.estado, u.tipo_usuario_id, t.tipo_usuario FROM tb_usuarios u join tb_tipos_usuario t on t.id=u.tipo_usuario_id where email='".$idUsuario."';";
         $this->repository->Execute($query);
     }
 

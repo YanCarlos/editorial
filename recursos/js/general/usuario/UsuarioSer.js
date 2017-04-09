@@ -34,8 +34,11 @@ app.service('usuarioService', function($http, $httpParamSerializerJQLike){
 				direccion: usuario.direccion,
 				telefono: usuario.telefono,
 				email: usuario.email,
-				password: usuario.password				
-			})
+				password: usuario.password,
+				tipoUsuario: usuario.tipo_usuario_id,
+				estado: usuario.estado			
+			}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).then(function mySucces(response) {
             /*Todos los datos se almacenan en .data*/
             return response.data;

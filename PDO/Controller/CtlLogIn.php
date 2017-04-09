@@ -27,10 +27,8 @@ switch (strtolower($method)) {
     case 'post':
         /* Guardar */
         /* CONTROL DE ACCIONES */        
-        $data = json_decode(json_encode($_POST));
-
-        $obj = new Usuario($data->email, $data->password, '0', $data->nombre, $data->apellido, $data->telefono, $data->direccion, 
-            $data->tipoUsuario);
+        $data = json_decode(json_encode($_POST));        
+        $obj = new Usuario($data->email, $data->password, '0', $data->nombre, $data->apellido, $data->telefono, $data->direccion, $data->tipoUsuario);
         $daoLogIn->registrar($obj);
         break;
 }

@@ -38,7 +38,8 @@ switch (strtolower($method)) {
         /* Guardar */
         /* CONTROL DE ACCIONES */
         $data = json_decode(json_encode($_POST));
-        $obj = new Cliente($data->password, $data->nombre, $data->apellido, $data->telefono, $data->direccion, $data->email);
+        $obj = new Usuario($data->email, $data->password, $data->estado, $data->nombre, $data->apellido, $data->telefono, 
+            $data->direccion, $data->tipoUsuario);
         $obj->setId($data->id);
         $dtoUsuario->editar($obj);
         break;

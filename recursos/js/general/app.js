@@ -11,12 +11,13 @@ var app = angular.module("appPrincipal", ['ngRoute']);
 app.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
-        //controller: 'CtlBanco',
         templateUrl: 'vista/autor/articulo.html'
     })
     .when('/editarperfil', {
-        //controller: 'CtlBanco',
         templateUrl: 'vista/compartido/editarperfil.html'
+    })
+    .when('/registroeditor', {
+        templateUrl: 'vista/admin/registroeditor.html'
     })
     .otherwise({
         redirectTo: '/'
